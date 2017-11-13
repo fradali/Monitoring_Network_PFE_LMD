@@ -1,0 +1,74 @@
+import java.io.*;
+import java.net.*;
+class Client {
+public static void main(String[] args)throws IOException
+{
+          Runtime runtime = Runtime.getRuntime();
+           String cmds[] = {"cmd", "/c", "tasklist"};
+           Process proc = runtime.exec(cmds);
+           InputStream inputstream = proc.getInputStream();
+           InputStreamReader inputstreamreader = new InputStreamReader(inputstream);
+           BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
+           String line;
+           boolean s = true;
+           int linecount=0;
+           int i=0; ;
+           while ((line = bufferedreader.readLine()) != null ) {
+        	   {
+ 				  linecount++;
+ 				 int indexfound=line.indexOf("avp.exe");
+ 							  if (indexfound>-1)
+ 							  {
+ 							  
+ 							  s=true;
+ 							   i++;
+ 							 
+ 							  }
+                                else{
+                                	  
+                        	  s=false;
+                        							 
+                        							  }
+                                                           
+        	   
+           }
+               if(s && i==1){
+            	    final int PORT_NUMBER = 44827;
+            	    final String HOSTNAME = "192.168.1.6";
+
+            	    //Attempt to connect
+            	    try {
+            	        Socket sock = new Socket(HOSTNAME, PORT_NUMBER);
+            	            PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
+            	        //Output
+            	        out.println(s);
+            	        out.flush();
+
+            	        out.close();
+            	        sock.close();
+            	    } catch(Exception e) {
+            	        e.printStackTrace();
+            	    }
+            	    }
+               else{
+            	   boolean d= false;
+           	    final int PORT_NUMBER = 44827;
+           	    final String HOSTNAME = "192.168.1.6";
+
+           	    //Attempt to connect
+           	    try {
+           	        Socket sock = new Socket(HOSTNAME, PORT_NUMBER);
+           	            PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
+           	        //Output
+           	        out.println(d);
+           	        out.flush();
+
+           	        out.close();
+           	        sock.close();
+           	    } catch(Exception e) {
+           	        e.printStackTrace();
+           	    }
+           	    }
+        		   }
+}
+}
